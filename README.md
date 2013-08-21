@@ -65,5 +65,3 @@ This will start Karma server and will continuously watch files in the project, e
 * push changes
 * switch back to the `main branch` and modify `package.json` to bump up version for the next iteration
 * commit (`chore(release): starting [version number]`) and push
-
-Well done!
