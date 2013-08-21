@@ -75,55 +75,58 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="page-header" id="getting_started">
-                <h1>Getting started</h1>
-            </div>
-            <h3>Dependencies</h3>
-            <p>
-                This repository contains a set of <strong>native AngularJS directives</strong> based on
-                Stripe's jquery.payment library. As a result no dependencies (jQuery or the existing library)
-                are required. The <strong>only required dependency</strong> is:
-            </p>
-            <ul>
-                <li>AngularJS (minimal version 1.0.4 or 1.1.2)</li>
-            </ul>
-            <h3>Files to download</h3>
-            <p>
-                Build files for all directives are distributed in several flavours: minified for production
-                usage, un-minified
-                for development, with or without templates. All the options are described and can be
-                <a href="https://github.com/seandesmond/angular-payment/tree/gh-pages">downloaded from here</a>.
-            </p>
-            <p>The good news is that the overall size of a download is very small:
-                &lt;9kB for all directives (~3kB with gzip compression!)</p>
+            <section id="getting_started">
+                <div class="page-header">
+                    <h1>Getting started</h1>
+                </div>
+                <h3>Dependencies</h3>
+                <p>
+                    This repository contains a set of <strong>native AngularJS directives</strong> based on
+                    Stripe's jquery.payment library. As a result no dependencies (jQuery or the existing library)
+                    are required. The <strong>only required dependency</strong> is:
+                </p>
+                <ul>
+                    <li>AngularJS (minimal version 1.0.4 or 1.1.2)</li>
+                </ul>
+                <h3>Files to download</h3>
+                <p>
+                    Build files for all directives are distributed in several flavours: minified for production
+                    usage, un-minified
+                    for development, with or without templates. All the options are described and can be
+                    <a href="https://github.com/seandesmond/angular-payment/tree/gh-pages">downloaded from here</a>.
+                </p>
+                <p>The good news is that the overall size of a download is very small:
+                    &lt;9kB for all directives (~3kB with gzip compression!)</p>
 
-            <h3>Installation</h3>
+                <h3>Installation</h3>
 
-            <p>As soon as you've got all the files downloaded and included in your page you just need to declare
-                a dependency on the <code>payment</code> <a
-                        href="http://docs.angularjs.org/guide/module">module</a>:<br>
-                <code>angular.module('myModule', ['payment']);</code>
-            </p>
-
+                <p>As soon as you've got all the files downloaded and included in your page you just need to declare
+                    a dependency on the <code>payment</code> <a
+                            href="http://docs.angularjs.org/guide/module">module</a>:<br>
+                    <code>angular.module('myModule', ['payment']);</code>
+                </p>
+            </section>
             <% demoModules.forEach(function(module) { %>
-            <div class="page-header">
-                <h1 id="<%= module.name %>"><%= module.displayName %>
-                    <small>
-                        (<a target="_blank"
-                            href="https://github.com/seandesmond/angular-payment/tree/master/src/<%= module.name %>">payment.<%=
-                        module.name %></a>)
-                    </small>
-                </h1>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <%= module.docs.html %>
+            <secion id="<%= module.name %>">
+                <div class="page-header">
+                    <h1><%= module.displayName %>
+                        <small>
+                            (<a target="_blank"
+                                href="https://github.com/seandesmond/angular-payment/tree/master/src/<%= module.name %>">payment.<%=
+                            module.name %></a>)
+                        </small>
+                    </h1>
                 </div>
-                <div class="col-md-6">
-                    <%= module.docs.md %>
+                <div class="row">
+                    <div class="col-md-6">
+                        <%= module.docs.html %>
+                    </div>
+                    <div class="col-md-6">
+                        <%= module.docs.md %>
+                    </div>
                 </div>
-            </div>
-            <script><%= module.docs.js %></script>
+                <script><%= module.docs.js %></script>
+            </secion>
             <% }); %>
         </div>
     </div>
