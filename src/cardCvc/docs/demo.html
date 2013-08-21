@@ -1,0 +1,7 @@
+<div ng-controller="CardCvcDemoCtrl">
+    <form name="cardCvcForm" novalidate="">
+        <card-cvc-input class="form-control" name="ccCvc" ng-model="cardCvc"></card-cvc-input>
+    </form>
+    <hr/>
+    <pre>Valid: <i>{{!cardCvcForm.$invalid}}</i></pre>
+</div>

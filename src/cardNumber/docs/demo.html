@@ -1,0 +1,7 @@
+<div ng-controller="CardNumberDemoCtrl">
+    <form name="cardForm" novalidate="">
+        <card-number-input class="form-control" name="ccNumber" ng-model="cardNumber" card-type="cardType"></card-number-input>
+    </form>
+    <hr/>
+    <pre>Card Type: <b>{{cardType || 'unknown'}}</b> - Valid: <i>{{!cardForm.$invalid}}</i></pre>
+</div>

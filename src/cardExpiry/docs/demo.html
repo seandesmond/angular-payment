@@ -1,0 +1,7 @@
+<div ng-controller="CardExpiryDemoCtrl">
+    <form name="cardExpiryForm" novalidate="">
+        <card-expiry-input class="form-control" name="ccExpiry" ng-model="cardExpiry"></card-expiry-input>
+    </form>
+    <hr/>
+    <pre>Expiry: <b>{{cardExpiry || 'undefined'}}</b> - Valid: <i>{{!cardExpiryForm.$invalid}}</i></pre>
+</div>
