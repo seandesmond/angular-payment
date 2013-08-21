@@ -35,17 +35,17 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Directives <b class="caret"></b></a>
                     <ul class="dropdown-menu" role="menu">
                         
-                        <li><a href="#restrictNumeric">Restrict Numeric</a></li>
+                        <li><a ng-click="scrollTo('restrictNumeric')" href="javascript:void(0);">Restrict Numeric</a></li>
                         
-                        <li><a href="#cardCvc">Card Cvc</a></li>
+                        <li><a ng-click="scrollTo('cardCvc')" href="javascript:void(0);">Card Cvc</a></li>
                         
-                        <li><a href="#cardExpiry">Card Expiry</a></li>
+                        <li><a ng-click="scrollTo('cardExpiry')" href="javascript:void(0);">Card Expiry</a></li>
                         
-                        <li><a href="#cardNumber">Card Number</a></li>
+                        <li><a ng-click="scrollTo('cardNumber')" href="javascript:void(0);">Card Number</a></li>
                         
                     </ul>
                 </li>
-                <li><a href="#getting_started">Getting started</a></li>
+                <li><a ng-click="scrollTo('getting_started')" href="javascript:void(0);">Getting started</a></li>
             </ul>
         </nav>
     </div>
@@ -113,7 +113,7 @@
                 </p>
             </section>
             
-            <secion id="restrictNumeric">
+            <section id="restrictNumeric">
                 <div class="page-header">
                     <h1>Restrict Numeric
                         <small>
@@ -138,9 +138,9 @@
     'use strict';
 };
 </script>
-            </secion>
+            </section>
             
-            <secion id="cardCvc">
+            <section id="cardCvc">
                 <div class="page-header">
                     <h1>Card Cvc
                         <small>
@@ -168,9 +168,9 @@ Validates a card CVC: validates number, validates length to 4</p>
     'use strict';
 };
 </script>
-            </secion>
+            </section>
             
-            <secion id="cardExpiry">
+            <section id="cardExpiry">
                 <div class="page-header">
                     <h1>Card Expiry
                         <small>
@@ -198,9 +198,9 @@ Validates a card expiry: validates numbers, validates in the future, supports ye
     'use strict';
 };
 </script>
-            </secion>
+            </section>
             
-            <secion id="cardNumber">
+            <section id="cardNumber">
                 <div class="page-header">
                     <h1>Card Number
                         <small>
@@ -230,7 +230,7 @@ Validates card numbers: numbers, Luhn algorithm and length</p>
     'use strict';
 };
 </script>
-            </secion>
+            </section>
             
         </div>
     </div>
