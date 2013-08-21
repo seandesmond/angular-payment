@@ -19,10 +19,6 @@ When you are done downloading all the dependencies and project files the only re
 angular.module('myModule', ['payment']);
 ```
 
-Project files are also available through your favourite package manager:
-* **Bower**: `bower install angular-payment`
-* **NuGet**: https://nuget.org/packages/Angular.Payment/
-
 ## Project philosophy
 
 ### Native, lightweight directives
