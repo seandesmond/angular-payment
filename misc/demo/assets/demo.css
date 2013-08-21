@@ -3,6 +3,10 @@ body {
     padding-top: 50px;
 }
 
+section {
+    padding-top: 30px;
+}
+
 .ap-header {
     padding: 30px 0 40px 0;
     text-align: center;
