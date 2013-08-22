@@ -204,19 +204,25 @@ angular.module('payment.restrictNumeric', [])
 angular.module('payment.cardCvc', ['payment.service', 'payment.restrictNumeric'])
     .directive('cardCvcInput', function () {
         'use strict';
-        var restrictCvc = function (e) {
-                var elm = angular.element(e.currentTarget), digit, val;
-                digit = String.fromCharCode(e.which);
-                if (!/^\d+$/.test(digit)) { return; }
-
-                val = elm.val() + digit;
-                if (val.length > 4) { e.preventDefault(); }
-            };
-
         return {
             restrict: 'E',
             templateUrl: 'template/cardCvc/cardCvc.html',
-            replace: true,
+            replace: true
+        };
+    })
+
+    .directive('cardCvcFormatter', function () {
+        'use strict';
+        var restrictCvc = function (e) {
+            var elm = angular.element(e.currentTarget), digit, val;
+            digit = String.fromCharCode(e.which);
+            if (!/^\d+$/.test(digit)) { return; }
+
+            val = elm.val() + digit;
+            if (val.length > 4) { e.preventDefault(); }
+        };
+
+        return {
             link: function postLink(scope, element) {
                 element.bind('keypress', restrictCvc);
             }
@@ -247,6 +253,15 @@ angular.module('payment.cardCvc', ['payment.service', 'payment.restrictNumeric']
 /*global angular: false */
 angular.module('payment.cardExpiry', ['payment.service', 'payment.restrictNumeric'])
     .directive('cardExpiryInput', ['payment', function (payment) {
+        'use strict';
+        return {
+            restrict: 'E',
+            templateUrl: 'template/cardExpiry/cardExpiry.html',
+            replace: true
+        };
+    }])
+
+    .directive('cardExpiryFormatter', ['payment', function (payment) {
         'use strict';
         var formatExpiry = function (e) {
                 var elm, digit, val;
@@ -309,9 +324,6 @@ angular.module('payment.cardExpiry', ['payment.service', 'payment.restrictNumeri
             };
 
         return {
-            restrict: 'E',
-            templateUrl: 'template/cardExpiry/cardExpiry.html',
-            replace: true,
             link: function postLink(scope, element) {
                 element.bind('keypress', restrictExpiry);
                 element.bind('keypress', formatExpiry);
@@ -324,7 +336,6 @@ angular.module('payment.cardExpiry', ['payment.service', 'payment.restrictNumeri
 
     .directive('cardExpiryValidator', ['payment', function (payment) {
         'use strict';
-
         var cardExpiryVal = function (value) {
             var month, prefix, year, ref;
 
@@ -366,6 +377,15 @@ angular.module('payment.cardExpiry', ['payment.service', 'payment.restrictNumeri
 /*global angular: false */
 angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeric'])
     .directive('cardNumberInput', ['$timeout', '$parse', 'payment', function ($timeout, $parse, payment) {
+        'use strict';
+        return {
+            restrict: 'E',
+            templateUrl: 'template/cardNumber/cardNumber.html',
+            replace: true
+        };
+    }])
+
+    .directive('cardNumberFormatter', ['$timeout', '$parse', 'payment', function ($timeout, $parse, payment) {
         'use strict';
         var restrictCardNumber = function (e) {
                 var card, digit = String.fromCharCode(e.which), value, elm = angular.element(e.currentTarget);
@@ -420,9 +440,6 @@ angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeri
             };
 
         return {
-            restrict: 'E',
-            templateUrl: 'template/cardNumber/cardNumber.html',
-            replace: true,
             require: 'ngModel',
             link: function postLink(scope, element, attrs, ngModelCtrl) {
                 var cardType = $parse(attrs.cardType);
