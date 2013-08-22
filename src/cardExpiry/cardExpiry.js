@@ -2,6 +2,15 @@
 angular.module('payment.cardExpiry', ['payment.service', 'payment.restrictNumeric'])
     .directive('cardExpiryInput', ['payment', function (payment) {
         'use strict';
+        return {
+            restrict: 'E',
+            templateUrl: 'template/cardExpiry/cardExpiry.html',
+            replace: true
+        };
+    }])
+
+    .directive('cardExpiryFormatter', ['payment', function (payment) {
+        'use strict';
         var formatExpiry = function (e) {
                 var elm, digit, val;
 
@@ -63,9 +72,6 @@ angular.module('payment.cardExpiry', ['payment.service', 'payment.restrictNumeri
             };
 
         return {
-            restrict: 'E',
-            templateUrl: 'template/cardExpiry/cardExpiry.html',
-            replace: true,
             link: function postLink(scope, element) {
                 element.bind('keypress', restrictExpiry);
                 element.bind('keypress', formatExpiry);
@@ -78,7 +84,6 @@ angular.module('payment.cardExpiry', ['payment.service', 'payment.restrictNumeri
 
     .directive('cardExpiryValidator', ['payment', function (payment) {
         'use strict';
-
         var cardExpiryVal = function (value) {
             var month, prefix, year, ref;
 

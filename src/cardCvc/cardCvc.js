@@ -2,19 +2,25 @@
 angular.module('payment.cardCvc', ['payment.service', 'payment.restrictNumeric'])
     .directive('cardCvcInput', function () {
         'use strict';
-        var restrictCvc = function (e) {
-                var elm = angular.element(e.currentTarget), digit, val;
-                digit = String.fromCharCode(e.which);
-                if (!/^\d+$/.test(digit)) { return; }
-
-                val = elm.val() + digit;
-                if (val.length > 4) { e.preventDefault(); }
-            };
-
         return {
             restrict: 'E',
             templateUrl: 'template/cardCvc/cardCvc.html',
-            replace: true,
+            replace: true
+        };
+    })
+
+    .directive('cardCvcFormatter', function () {
+        'use strict';
+        var restrictCvc = function (e) {
+            var elm = angular.element(e.currentTarget), digit, val;
+            digit = String.fromCharCode(e.which);
+            if (!/^\d+$/.test(digit)) { return; }
+
+            val = elm.val() + digit;
+            if (val.length > 4) { e.preventDefault(); }
+        };
+
+        return {
             link: function postLink(scope, element) {
                 element.bind('keypress', restrictCvc);
             }

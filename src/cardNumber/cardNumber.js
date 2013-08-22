@@ -2,6 +2,15 @@
 angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeric'])
     .directive('cardNumberInput', ['$timeout', '$parse', 'payment', function ($timeout, $parse, payment) {
         'use strict';
+        return {
+            restrict: 'E',
+            templateUrl: 'template/cardNumber/cardNumber.html',
+            replace: true
+        };
+    }])
+
+    .directive('cardNumberFormatter', ['$timeout', '$parse', 'payment', function ($timeout, $parse, payment) {
+        'use strict';
         var restrictCardNumber = function (e) {
                 var card, digit = String.fromCharCode(e.which), value, elm = angular.element(e.currentTarget);
 
@@ -55,9 +64,6 @@ angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeri
             };
 
         return {
-            restrict: 'E',
-            templateUrl: 'template/cardNumber/cardNumber.html',
-            replace: true,
             require: 'ngModel',
             link: function postLink(scope, element, attrs, ngModelCtrl) {
                 var cardType = $parse(attrs.cardType);
