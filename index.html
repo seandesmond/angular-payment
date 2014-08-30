@@ -7,8 +7,8 @@
           content="AngularJS (Angular) native directives for Stripe's javascript payment library. Small footprint (~3kB gzipped!), no 3rd party JS dependencies (jQuery, etc.) required! Widgets: Restrict Numeric, Card Cvc, Card Expiry, Card Number, ">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-    <script src="payment-tpls-0.1.0-SNAPSHOT.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <script src="payment-tpls-0.2.0-SNAPSHOT.js"></script>
     <script src="assets/app.js"></script>
     <script src="assets/dropdownToggle.js"></script>
 
@@ -59,7 +59,7 @@
             <a class="btn btn-default" href="https://github.com/seandesmond/angular-payment"><i class="icon-github"></i> Code on Github</a>
             <a class="btn btn-primary" href="https://github.com/seandesmond/angular-payment/tree/gh-pages">
                 <i class="icon-download-alt icon-white"></i> Download
-                <small>(0.1.0-SNAPSHOT)</small>
+                <small>(0.2.0-SNAPSHOT)</small>
             </a>
         </div>
     </div>
@@ -83,7 +83,7 @@
         <div class="col-md-12">
             <section id="getting_started">
                 <div class="page-header">
-                    <h1>Getting started </h1>
+                    <h1>Getting started</h1>
                 </div>
                 <h3>Dependencies</h3>
                 <p>
@@ -134,9 +134,10 @@
                         <p>Restrict numeric directive that will restrict keyboard input to numbers only.</p>
                     </div>
                 </div>
-                <script>var RestrictNumericDemoCtrl = function () {
+                <script>angular.module('payment.restrictNumeric').controller('RestrictNumericDemoCtrl', function () {
     'use strict';
-};
+    angular.noop();
+});
 </script>
             </section>
             
@@ -165,9 +166,10 @@
 <p>Validates a card CVC: validates number, validates length to 4</p>
                     </div>
                 </div>
-                <script>var CardCvcDemoCtrl = function () {
+                <script>angular.module('payment.cardCvc').controller('CardCvcDemoCtrl', function () {
     'use strict';
-};
+    angular.noop();
+});
 </script>
             </section>
             
@@ -196,9 +198,10 @@
 <p>Validates a card expiry: validates numbers, validates in the future, supports year shorthand</p>
                     </div>
                 </div>
-                <script>var CardExpiryDemoCtrl = function () {
+                <script>angular.module('payment.cardExpiry').controller('CardExpiryDemoCtrl', function () {
     'use strict';
-};
+    angular.noop();
+});
 </script>
             </section>
             
@@ -229,9 +232,10 @@
 <p>It also provides an optional attribute <code>cardType</code> representing the card type if it can be ascertained from the input value</p>
                     </div>
                 </div>
-                <script>var CardNumberDemoCtrl = function ($scope) {
+                <script>angular.module('payment.cardNumber').controller('CardNumberDemoCtrl', function () {
     'use strict';
-};
+    angular.noop();
+});
 </script>
             </section>
             
