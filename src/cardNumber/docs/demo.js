@@ -1,3 +1,3 @@
-var CardNumberDemoCtrl = function ($scope) {
-    'use strict';
-};
+/**
+ * Created by SeanDesmond on 8/30/14.
+ */
