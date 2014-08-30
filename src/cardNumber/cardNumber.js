@@ -1,13 +1,12 @@
-/*global angular: false */
 angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeric'])
-    .directive('cardNumberInput', ['$timeout', '$parse', 'payment', function ($timeout, $parse, payment) {
+    .directive('cardNumberInput', function () {
         'use strict';
         return {
             restrict: 'E',
             templateUrl: 'template/cardNumber/cardNumber.html',
             replace: true
         };
-    }])
+    })
 
     .directive('cardNumberFormatter', ['$timeout', '$parse', 'payment', function ($timeout, $parse, payment) {
         'use strict';

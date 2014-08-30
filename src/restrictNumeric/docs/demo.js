@@ -1,3 +1,4 @@
-/**
- * Created by SeanDesmond on 8/30/14.
- */
+angular.module('payment.restrictNumeric').controller('RestrictNumericDemoCtrl', function () {
+    'use strict';
+    angular.noop();
+});

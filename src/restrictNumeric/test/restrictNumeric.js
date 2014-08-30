@@ -1,10 +1,10 @@
 /*global describe: false, beforeEach: false, inject: false, it: false, module: false, expect: false, runs: false, waitsFor: false, jQuery: false */
 describe('restrict numeric directive', function () {
     'use strict';
-    var $rootScope, element;
+    var $rootScope, $compile, element;
     beforeEach(module('payment.restrictNumeric'));
     beforeEach(inject(function (_$compile_, _$rootScope_) {
-        var $compile = _$compile_;
+        $compile = _$compile_;
         $rootScope = _$rootScope_;
         element = $compile('<div><input ng-model="someNumber" restrict-numeric/></div>')($rootScope);
         $rootScope.$digest();

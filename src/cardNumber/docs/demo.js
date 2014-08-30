@@ -1,3 +1,4 @@
-/**
- * Created by SeanDesmond on 8/30/14.
- */
+angular.module('payment.cardNumber').controller('CardNumberDemoCtrl', function () {
+    'use strict';
+    angular.noop();
+});

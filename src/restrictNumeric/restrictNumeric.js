@@ -1,4 +1,3 @@
-/*global angular: false */
 angular.module('payment.restrictNumeric', [])
     .directive('restrictNumeric', function () {
         'use strict';
