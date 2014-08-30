@@ -9,7 +9,7 @@ angular.module('payment.service', [])
             cards = [
                 {
                     type: 'maestro',
-                    pattern: /^(5018|5020|5038|6304|6759|676[1-3])/,
+                    pattern: /^(5(018|0[23]|[68])|6(39|7))/,
                     format: defaultFormat,
                     length: [12, 13, 14, 15, 16, 17, 18, 19],
                     cvcLength: [3],
@@ -68,6 +68,27 @@ angular.module('payment.service', [])
                     pattern: /^4/,
                     format: defaultFormat,
                     length: [13, 14, 15, 16],
+                    cvcLength: [3],
+                    luhn: true
+                }, {
+                    type: 'visaelectron',
+                    pattern: /^4(026|17500|405|508|844|91[37])/,
+                    format: defaultFormat,
+                    length: [16],
+                    cvcLength: [3],
+                    luhn: true
+                }, {
+                    type: 'forbrugsforeningen',
+                    pattern: /^600/,
+                    format: defaultFormat,
+                    length: [16],
+                    cvcLength: [3],
+                    luhn: true
+                }, {
+                    type: 'dankort',
+                    pattern: /^5019/,
+                    format: defaultFormat,
+                    length: [16],
                     cvcLength: [3],
                     luhn: true
                 }
@@ -185,7 +206,6 @@ angular.module('payment.service', [])
             formatCardNumber: formatCardNumber
         };
     }]);
-/*global angular: false */
 angular.module('payment.restrictNumeric', [])
     .directive('restrictNumeric', function () {
         'use strict';
@@ -375,16 +395,15 @@ angular.module('payment.cardExpiry', ['payment.service', 'payment.restrictNumeri
             }
         };
     }]);
-/*global angular: false */
 angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeric'])
-    .directive('cardNumberInput', ['$timeout', '$parse', 'payment', function ($timeout, $parse, payment) {
+    .directive('cardNumberInput', function () {
         'use strict';
         return {
             restrict: 'E',
             templateUrl: 'template/cardNumber/cardNumber.html',
             replace: true
         };
-    }])
+    })
 
     .directive('cardNumberFormatter', ['$timeout', '$parse', 'payment', function ($timeout, $parse, payment) {
         'use strict';
@@ -494,7 +513,7 @@ angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeri
     }]);
 angular.module("template/cardCvc/cardCvc.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/cardCvc/cardCvc.html",
-    "<input type=\"text\" x-autocompletetype=\"cc-csc\" restrict-numeric card-cvc-validator card-cvc-formatter ng-maxlength=\"4\" ng-pattern=\"/\d*/\" />");
+    "<input type=\"text\" x-autocompletetype=\"cc-csc\" restrict-numeric card-cvc-validator card-cvc-formatter ng-maxlength=\"4\" ng-pattern=\"/\\d*/\" />");
 }]);
 
 angular.module("template/cardExpiry/cardExpiry.html", []).run(["$templateCache", function($templateCache) {
