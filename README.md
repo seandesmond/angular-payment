@@ -19,6 +19,9 @@ When you are done downloading all the dependencies and project files the only re
 angular.module('myModule', ['payment']);
 ```
 
+Project files are also available through bower with:
+* `bower install angular-payment`
+
 ## Project philosophy
 
 ### Native, lightweight directives
