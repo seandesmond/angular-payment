@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="paymentDemoApp" id="top">
+<head>
+    <meta charset="utf-8">
+    <title>Angular directives based on Stripe's jQuery payment library</title>
+    <meta name="description"
+          content="AngularJS (Angular) native directives for Stripe's javascript payment library. Small footprint (~3kB gzipped!), no 3rd party JS dependencies (jQuery, etc.) required! Widgets: Restrict Numeric, Card Cvc, Card Expiry, Card Number, ">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <script src="angular-payment-tpls-0.3.0.js"></script>
+    <script src="assets/app.js"></script>
+    <script src="assets/dropdownToggle.js"></script>
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/demo.css"/>
+
+    <link rel="author" href="https://github.com/seandesmond/angular-payment/graphs/contributors">
+</head>
+<body class="ng-cloak" ng-controller="MainCtrl">
+<header class="navbar navbar-default navbar-fixed-top" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".ap-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">Angular Payment</a>
+        </div>
+        <nav class="collapse navbar-collapse ap-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Directives <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu">
+                        
+                        <li><a ng-click="scrollTo('restrictNumeric')" href="javascript:void(0);">Restrict Numeric</a></li>
+                        
+                        <li><a ng-click="scrollTo('cardCvc')" href="javascript:void(0);">Card Cvc</a></li>
+                        
+                        <li><a ng-click="scrollTo('cardExpiry')" href="javascript:void(0);">Card Expiry</a></li>
+                        
+                        <li><a ng-click="scrollTo('cardNumber')" href="javascript:void(0);">Card Number</a></li>
+                        
+                    </ul>
+                </li>
+                <li><a ng-click="scrollTo('getting_started')" href="javascript:void(0);">Getting started</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="ap-header" id="content">
+    <div class="container">
+        <h1>Angular Payment</h1>
+        <p class="lead">Stripe's <strong><a href="https://github.com/stripe/jquery.payment">jquery.payment</a></strong> library converted to pure <strong><a
+                href="http://angularjs.org">AngularJS</a></strong></p>
+        <div class="btn-group">
+            <a class="btn btn-default" href="https://github.com/seandesmond/angular-payment"><i class="icon-github"></i> Code on Github</a>
+            <a class="btn btn-primary" href="https://github.com/seandesmond/angular-payment/tree/gh-pages">
+                <i class="icon-download-alt icon-white"></i> Download
+                <small>(0.3.0)</small>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="bs-docs-social">
+    <div class="container">
+        <ul class="bs-docs-social-buttons">
+            <li>
+                <iframe src="http://ghbtns.com/github-btn.html?user=seandesmond&repo=angular-payment&type=watch&count=true"
+                        allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+            </li>
+            <li>
+                <iframe src="http://ghbtns.com/github-btn.html?user=seandesmond&repo=angular-payment&type=fork&count=true"
+                        allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <section id="getting_started">
+                <div class="page-header">
+                    <h1>Getting started</h1>
+                </div>
+                <h3>Dependencies</h3>
+                <p>
+                    This repository contains a set of <strong>native AngularJS directives</strong> based on
+                    Stripe's jquery.payment library. As a result no dependencies (jQuery or the existing library)
+                    are required. The <strong>only required dependency</strong> is:
+                </p>
+                <ul>
+                    <li>AngularJS (minimal version 1.0.4 or 1.1.2)</li>
+                </ul>
+                <h3>Files to download</h3>
+                <p>
+                    Build files for all directives are distributed in several flavours: minified for production
+                    usage, un-minified
+                    for development, with or without templates. All the options are described and can be
+                    <a href="https://github.com/seandesmond/angular-payment/tree/gh-pages">downloaded from here</a>.
+                </p>
+                <p>The good news is that the overall size of a download is very small:
+                    &lt;9kB for all directives (~3kB with gzip compression!)</p>
+
+                <h3>Installation</h3>
+
+                <p>As soon as you've got all the files downloaded and included in your page you just need to declare
+                    a dependency on the <code>payment</code> <a
+                            href="http://docs.angularjs.org/guide/module">module</a>:<br>
+                    <code>angular.module('myModule', ['payment']);</code>
+                </p>
+            </section>
+            
+            <section id="restrictNumeric">
+                <div class="page-header">
+                    <h1>Restrict Numeric
+                        <small>
+                            (<a target="_blank"
+                                href="https://github.com/seandesmond/angular-payment/tree/master/src/restrictNumeric">payment.restrictNumeric</a>)
+                        </small>
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div ng-controller="RestrictNumericDemoCtrl">
+    <form name="cardCvcForm" novalidate="">
+        <input class="form-control" type="text" restrict-numeric ng-model="someNumber"/>
+    </form>
+</div>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Restrict numeric directive that will restrict keyboard input to numbers only.</p>
+                    </div>
+                </div>
+                <script>angular.module('payment.restrictNumeric').controller('RestrictNumericDemoCtrl', function () {
+    'use strict';
+    angular.noop();
+});
+</script>
+            </section>
+            
+            <section id="cardCvc">
+                <div class="page-header">
+                    <h1>Card Cvc
+                        <small>
+                            (<a target="_blank"
+                                href="https://github.com/seandesmond/angular-payment/tree/master/src/cardCvc">payment.cardCvc</a>)
+                        </small>
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div ng-controller="CardCvcDemoCtrl">
+    <form name="cardCvcForm" novalidate="">
+        <card-cvc-input class="form-control" name="ccCvc" ng-model="cardCvc"></card-cvc-input>
+    </form>
+    <hr/>
+    <pre>Valid: <i>{{!cardCvcForm.$invalid}}</i></pre>
+</div>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Formats card CVC: restricts length to 4 numbers, restricts input to numbers</p>
+
+<p>Validates a card CVC: validates number, validates length to 4</p>
+                    </div>
+                </div>
+                <script>angular.module('payment.cardCvc').controller('CardCvcDemoCtrl', function () {
+    'use strict';
+    angular.noop();
+});
+</script>
+            </section>
+            
+            <section id="cardExpiry">
+                <div class="page-header">
+                    <h1>Card Expiry
+                        <small>
+                            (<a target="_blank"
+                                href="https://github.com/seandesmond/angular-payment/tree/master/src/cardExpiry">payment.cardExpiry</a>)
+                        </small>
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div ng-controller="CardExpiryDemoCtrl">
+    <form name="cardExpiryForm" novalidate="">
+        <card-expiry-input class="form-control" name="ccExpiry" ng-model="cardExpiry"></card-expiry-input>
+    </form>
+    <hr/>
+    <pre>Expiry: <b>{{cardExpiry || 'undefined'}}</b> - Valid: <i>{{!cardExpiryForm.$invalid}}</i></pre>
+</div>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Formats card expiry: includes a <code>/</code> between the month and year, restricts input to numbers, restricts length</p>
+
+<p>Validates a card expiry: validates numbers, validates in the future, supports year shorthand</p>
+                    </div>
+                </div>
+                <script>angular.module('payment.cardExpiry').controller('CardExpiryDemoCtrl', function () {
+    'use strict';
+    angular.noop();
+});
+</script>
+            </section>
+            
+            <section id="cardNumber">
+                <div class="page-header">
+                    <h1>Card Number
+                        <small>
+                            (<a target="_blank"
+                                href="https://github.com/seandesmond/angular-payment/tree/master/src/cardNumber">payment.cardNumber</a>)
+                        </small>
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div ng-controller="CardNumberDemoCtrl">
+    <form name="cardForm" novalidate="">
+        <card-number-input class="form-control" name="ccNumber" ng-model="cardNumber" card-type="cardType"></card-number-input>
+    </form>
+    <hr/>
+    <pre>Card Type: <b>{{cardType || 'unknown'}}</b> - Valid: <i>{{!cardForm.$invalid}}</i></pre>
+</div>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Formats card numbers: including a space between every 4 digits, restricts input to numbers, limits to 16 numbers, American Express formatting support</p>
+
+<p>Validates card numbers: numbers, Luhn algorithm and length</p>
+
+<p>It also provides an optional attribute <code>cardType</code> representing the card type if it can be ascertained from the input value</p>
+                    </div>
+                </div>
+                <script>angular.module('payment.cardNumber').controller('CardNumberDemoCtrl', function () {
+    'use strict';
+    angular.noop();
+});
+</script>
+            </section>
+            
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <p>Code licensed under <a href="https://github.com/seandesmond/angular-payment/blob/master/LICENSE">MIT License</a>.
+        </p>
+        <p><a href="https://github.com/seandesmond/angular-payment/issues?state=open">Issues</a></p>
+    </div>
+</footer>
+</body>
+</html>

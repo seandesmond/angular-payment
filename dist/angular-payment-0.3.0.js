@@ -162,7 +162,7 @@ angular.module('payment.service', [])
                 year = trim(year);
                 if (!/^\d+$/.test(month)) { return false; }
                 if (!/^\d+$/.test(year)) { return false; }
-                if (!(parseInt(month, 10) <= 12)) { return false; }
+                if (!(parseInt(month, 10) <= 12)) { return false; } // jshint ignore:line
                 if (year.length === 2) {
                     prefix = (new Date()).getFullYear();
                     prefix = prefix.toString().slice(0, 2);
@@ -210,7 +210,7 @@ angular.module('payment.restrictNumeric', [])
         'use strict';
         var restrictNumeric = function (e) {
                 if (e.metaKey || e.ctrlKey || e.which === 0 || e.which < 33) { return; }
-                if (e.which === 32 || !!/[\d\s]/.test(String.fromCharCode(e.which)) === false) { e.preventDefault(); }
+                if (e.which === 32 || !!/[\d\s]/.test(String.fromCharCode(e.which)) === false) { e.preventDefault(); } // jshint ignore:line
             };
 
         return {

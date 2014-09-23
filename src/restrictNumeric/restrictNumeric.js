@@ -3,7 +3,7 @@ angular.module('payment.restrictNumeric', [])
         'use strict';
         var restrictNumeric = function (e) {
                 if (e.metaKey || e.ctrlKey || e.which === 0 || e.which < 33) { return; }
-                if (e.which === 32 || !!/[\d\s]/.test(String.fromCharCode(e.which)) === false) { e.preventDefault(); }
+                if (e.which === 32 || !!/[\d\s]/.test(String.fromCharCode(e.which)) === false) { e.preventDefault(); } // jshint ignore:line
             };
 
         return {

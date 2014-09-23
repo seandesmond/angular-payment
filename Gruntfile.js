@@ -22,7 +22,7 @@ module.exports = function (grunt) {
         modules: [], //to be filled in by build task
         pkg: grunt.file.readJSON('package.json'),
         dist: 'dist',
-        filename: 'payment',
+        filename: 'angular-payment',
         filenamecustom: '<%= filename %>-custom',
         meta: {
             modules: 'angular.module("payment", [<%= srcModules %>]);',
@@ -145,16 +145,20 @@ module.exports = function (grunt) {
             }
         },
         shell: {
-            //We use %version% and evluate it at run-time, because <%= pkg.version %>
+            //We use %version% and evaluate it at run-time, because <%= pkg.version %>
             //is only evaluated once
-            release: [
+            'release-prepare': [
                 'grunt before-test after-test',
                 'grunt version', //remove "-SNAPSHOT"
-                'grunt changelog',
+                'grunt changelog'
+            ],
+            'release-complete': [
                 'git commit CHANGELOG.md package.json -m "chore(release): v%version%"',
-                'git tag %version%',
+                'git tag %version%'
+            ],
+            'release-start': [
                 'grunt version:minor:"SNAPSHOT"',
-                'git commit package.json -m "chore(): Starting v%version%"'
+                'git commit package.json -m "chore(release): Starting v%version%"'
             ]
         },
         ngdocs: {
@@ -168,7 +172,7 @@ module.exports = function (grunt) {
                     'docs/css/style.css'
                 ],
                 navTemplate: 'docs/nav.html',
-                title: 'payment',
+                title: 'angular-payment',
                 html5Mode: false
             },
             api: {
@@ -278,7 +282,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('build', 'Create payment build files', function () {
+    grunt.registerTask('build', 'Create angular-payment build files', function () {
         var _ = grunt.util._, modules, srcFiles, tpljsFiles;
 
         //If arguments define what modules to build, build those. Else, everything

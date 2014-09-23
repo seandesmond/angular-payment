@@ -161,7 +161,7 @@ angular.module('payment.service', [])
                 year = trim(year);
                 if (!/^\d+$/.test(month)) { return false; }
                 if (!/^\d+$/.test(year)) { return false; }
-                if (!(parseInt(month, 10) <= 12)) { return false; }
+                if (!(parseInt(month, 10) <= 12)) { return false; } // jshint ignore:line
                 if (year.length === 2) {
                     prefix = (new Date()).getFullYear();
                     prefix = prefix.toString().slice(0, 2);

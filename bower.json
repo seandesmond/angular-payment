@@ -1,6 +1,25 @@
 {
     "name": "angular-payment",
     "version": "0.2.0",
-    "main": "dist/payment-0.2.0-SNAPSHOT.js",
-    "dependencies": {}
+    "author": {
+        "name": "https://github.com/seandesmond/angular-payment/graphs/contributors"
+    },
+    "main": ["dist/angular-payment-tpls-0.3.0.js"],
+    "dependencies": {
+        "angular": ">=1"
+    },
+    "ignore": [
+        "src",
+        "docs",
+        "misc",
+        ".gitignore",
+        ".gitattributes",
+        ".travis.yml",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "Gruntfile.js",
+        "karma.config.js",
+        "package.json",
+        "README.md"
+    ]
 }
