@@ -18,7 +18,7 @@
         "CHANGELOG.md",
         "CONTRIBUTING.md",
         "Gruntfile.js",
-        "karma.config.js",
+        "karma.conf.js",
         "package.json",
         "README.md"
     ]
