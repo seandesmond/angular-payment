@@ -12,8 +12,8 @@ angular.module('payment.cardCvc', ['payment.service', 'payment.restrictNumeric']
     .directive('cardCvcFormatter', function () {
         'use strict';
         var restrictCvc = function (e) {
-            var elm = angular.element(e.currentTarget), digit, val;
-            digit = String.fromCharCode(e.which);
+            var elm = angular.element(e.currentTarget || e.srcElement), digit, val;
+            digit = String.fromCharCode(e.which || e.keyCode);
             if (!/^\d+$/.test(digit)) { return; }
 
             val = elm.val() + digit;

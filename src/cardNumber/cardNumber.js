@@ -11,7 +11,7 @@ angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeri
     .directive('cardNumberFormatter', ['$timeout', '$parse', 'payment', function ($timeout, $parse, payment) {
         'use strict';
         var restrictCardNumber = function (e) {
-                var card, digit = String.fromCharCode(e.which), value, elm = angular.element(e.currentTarget);
+                var card, digit = String.fromCharCode(e.which || e.keyCode), value, elm = angular.element(e.currentTarget || e.srcElement);
 
                 if (!/^\d+$/.test(digit)) { return; }
                 if (payment.hasTextSelected(elm)) { return; }
@@ -28,10 +28,10 @@ angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeri
             formatCardNumber = function (e) {
                 var elm, card, digit, length, re, upperLength = 16, value;
 
-                digit = String.fromCharCode(e.which);
+                digit = String.fromCharCode(e.which || e.keyCode);
                 if (!/^\d+$/.test(digit)) { return; }
 
-                elm = angular.element(e.currentTarget);
+                elm = angular.element(e.currentTarget || e.srcElement);
                 value = elm.val();
                 card = payment.cardFromNumber(value + digit);
                 length = (value.replace(/\D/g, '') + digit).length;
@@ -54,7 +54,7 @@ angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeri
                 }
             },
             reFormatCardNumber = function (e) {
-                var elm = angular.element(e.currentTarget);
+                var elm = angular.element(e.currentTarget || e.srcElement);
                 $timeout(function () {
                     var value = elm.val();
                     value = payment.formatCardNumber(value);
