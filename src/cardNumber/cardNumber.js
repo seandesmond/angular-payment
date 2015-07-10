@@ -60,12 +60,26 @@ angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeri
                     value = payment.formatCardNumber(value);
                     elm.val(value);
                 });
-            };
-
+			},
+			originalCards = payment._paymentCards._copyCards(payment._paymentCards._cards);
         return {
             require: 'ngModel',
             link: function postLink(scope, element, attrs, ngModelCtrl) {
                 var cardType = $parse(attrs.cardType);
+
+                attrs.$observe('cardWhitelist', function (whitelist) {
+                    if(!whitelist) {
+                        payment._paymentCards.setCards(originalCards);
+                        return;
+                    }
+                    var _cards = [];
+                    angular.forEach(originalCards, function(card) {
+                        if(whitelist.indexOf(card.type) >= 0) {
+                            _cards.push(card);
+                        }
+                    });
+                    payment._paymentCards.setCards(_cards);
+                });
 
                 element.bind('keypress', restrictCardNumber);
                 element.bind('keypress', formatCardNumber);
@@ -93,9 +107,26 @@ angular.module('payment.cardNumber', ['payment.service', 'payment.restrictNumeri
 
     .directive('cardNumberValidator', ['payment', function (payment) {
         'use strict';
+        var originalCards = payment._paymentCards._copyCards(payment._paymentCards._cards);
         return {
             require: 'ngModel',
             link: function (scope, elm, attrs, ngModelCtrl) {
+                if(!attrs.cardNumberFormatter) {
+                    attrs.$observe('cardWhitelist', function (whitelist) {
+                        if(!whitelist) {
+                            payment._paymentCards.setCards(originalCards);
+                            return;
+                        }
+                        var _cards = [];
+                        angular.forEach(originalCards, function(card) {
+                            if(whitelist.indexOf(card.type) >= 0) {
+                                _cards.push(card);
+                            }
+                        });
+						payment._paymentCards.setCards(_cards);
+					});
+                }
+
                 function validate(value) {
                     if (!value) { return false; }
                     var valid = payment.validateCardNumber(value);

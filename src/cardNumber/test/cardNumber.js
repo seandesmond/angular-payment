@@ -72,4 +72,18 @@ describe('card number input directive', function () {
             expect(defaultPrevented).toBeTruthy();
         });
     });
+
+    it('respects whitelist', function () {
+        element = $compile('<card-number-input ng-model="cardNumber" card-whitelist="[\'visa\']"></card-number-input>')($rootScope);
+        $rootScope.$digest();
+
+        $rootScope.cardNumber = '5105105105105100';
+        $rootScope.$digest();
+        expect(element.hasClass('ng-invalid')).toBe(true);
+
+        $rootScope.cardNumber = '4111111111111111';
+        $rootScope.$digest();
+        expect(element.hasClass('ng-invalid')).toBe(false);
+    });
+
 });

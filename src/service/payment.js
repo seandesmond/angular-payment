@@ -1,10 +1,8 @@
 /*global angular: false */
 angular.module('payment.service', [])
-    .factory('payment', ['$document', function ($document) {
-        'use strict';
-
-        var defaultFormat = /(\d{1,4})/g,
-            cards = [
+	.provider("paymentCards", function () {
+		var defaultFormat = /(\d{1,4})/g,
+			cards = [
                 {
                     type: 'maestro',
                     pattern: /^(5(018|0[23]|[68])|6(39|7))/,
@@ -90,8 +88,63 @@ angular.module('payment.service', [])
                     cvcLength: [3],
                     luhn: true
                 }
-            ],
-            trim = function (str) {
+            ];
+
+        function copyCards(_cards) {
+			var _result = [];
+			// use a copy so we can modify this instance by instance - angular.copy broken for regexp in angular < 1.2.0
+			for(var _c = 0; _c < _cards.length; _c++){
+				_result[_c] = {
+					type: _cards[_c].type,
+					pattern: _cards[_c].pattern,
+					format: _cards[_c].format,
+					length: _cards[_c].length,
+					cvcLength: _cards[_c].cvcLength,
+					luhn: _cards[_c].luhn
+				};
+			}
+			return _result;
+        }
+
+		return {
+			addCard: function(card) {
+				cards.push(card);
+			},
+            _cards: cards,
+			$get: function () {
+				var _cards = copyCards(cards);
+				return {
+					cardFromNumber: function (num) {
+						var i, len;
+						if (!num) { return null; }
+						num = num.toString().replace(/\D/g, '');
+						for (i = 0, len = _cards.length; i < len; i++) {
+							if (_cards[i].pattern.test(num)) { return _cards[i]; }
+						}
+
+						return null;
+					},
+					cardFromType: function (type) {
+						var i;
+						for (i = 0; i < _cards.length; i++) {
+							if (_cards[i].type === type) { return _cards[i]; }
+						}
+
+						return undefined;
+					},
+					setCards: function(newCards){
+						_cards = newCards;
+					},
+					_copyCards: copyCards,
+					_cards: _cards
+				};
+			}
+		};
+	})
+    .factory('payment', ['$document', 'paymentCards', function ($document, paymentCards) {
+        'use strict';
+
+        var trim = function (str) {
                 return str.toString().replace(/^\s+|\s+$/g, '');
             },
             hasTextSelected = function (elm) {
@@ -99,17 +152,7 @@ angular.module('payment.service', [])
                 if ((elm.prop('selectionStart') != null) && elm.prop('selectionStart') !== elm.prop('selectionEnd')) { return true; }
                 return $document !== undefined && $document !== null ? (ref = $document.selection) != null ? typeof ref.createRange === "function" ? ref.createRange().text : undefined : undefined : undefined;
             },
-            cardFromNumber = function (num) {
-                var card, i, len;
-                if (!num) { return null; }
-                num = num.toString().replace(/\D/g, '');
-                for (i = 0, len = cards.length; i < len; i++) {
-                    card = cards[i];
-                    if (card.pattern.test(num)) { return card; }
-                }
-
-                return null;
-            },
+            cardFromNumber = paymentCards.cardFromNumber,
             luhnCheck = function (num) {
                 var digit, digits = num.toString().split('').reverse(), sum = 0, i, odd = true;
                 for (i = 0; i < digits.length; i++) {
@@ -175,14 +218,7 @@ angular.module('payment.service', [])
 
                 return expiry > currentTime;
             },
-            cardFromType = function (type) {
-                var i;
-                for (i = 0; i < cards.length; i++) {
-                    if (cards[i].type === type) { return cards[i]; }
-                }
-
-                return undefined;
-            },
+            cardFromType = paymentCards.cardFromType,
             validateCardCVC = function (cvc, type) {
                 var card;
                 cvc = trim(cvc);
@@ -201,6 +237,7 @@ angular.module('payment.service', [])
             validateCardNumber: validateCardNumber,
             validateCardExpiry: validateCardExpiry,
             validateCardCvc: validateCardCVC,
-            formatCardNumber: formatCardNumber
+            formatCardNumber: formatCardNumber,
+            _paymentCards: paymentCards
         };
     }]);
