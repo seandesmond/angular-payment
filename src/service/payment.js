@@ -49,7 +49,7 @@ angular.module('payment.service', [])
                     luhn: true
                 }, {
                     type: 'mastercard',
-                    pattern: /^5[1-5]/,
+                    pattern: /^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)/,
                     format: defaultFormat,
                     length: [16],
                     cvcLength: [3],
